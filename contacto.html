@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Parcial 2do Corte</title>
+    <link rel="stylesheet" href="estilos_p2.css" />
+  </head>
+  <body>
+    <header class="cabecera">
+      <nav class="bar_nav">
+        <div class="logo_nav">
+          <img
+            class="logo"
+            src="https://www.artesanatopassoapassoja.com.br/wp-content/uploads/2021/12/molde-letra-d-7.png"
+            alt=""
+          />
+
+          <label for="menu_burger" class="label_burger">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              fill="currentColor"
+              class="burger_icono"
+              viewBox="0 0 16 16"
+            >
+              <path
+                fill-rule="evenodd"
+                d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5m0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5"
+              />
+            </svg>
+          </label>
+          <input type="checkbox" name="" id="menu_burger" class="menu_burger" />
+          <ul class="ul_links">
+            <li class="li_links">
+              <a class="links" href="index.html">Home</a>
+            </li>
+            <li class="li_links">
+              <a class="links" href="proyects.html">Proyectos</a>
+            </li>
+            <li class="li_links">
+              <a class="links" href="contacto.html">Contacto</a>
+            </li>
+            <button class="boton_tema" id="boton">Cambiar tema</button>
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <div class="form-wrapper">
+      <div class="form-container">
+        <h1 class="form-title">Contáctame</h1>
+        <p class="form-description">
+          Si tienes alguna duda o mensaje, completa el formulario y te
+          responderé pronto.
+        </p>
+
+        <form onsubmit="return enviarCorreo(event)">
+          <div class="form-input-area">
+            <input
+              type="text"
+              name="name"
+              class="form-input"
+              placeholder="Tu nombre"
+              required
+            />
+            <input
+              type="email"
+              name="email"
+              id="correoUsuario"
+              class="form-input"
+              placeholder="Tu correo"
+              required
+            />
+            <textarea
+              name="message"
+              class="form-input"
+              rows="5"
+              placeholder="Tu mensaje"
+              required
+            ></textarea>
+            <button type="submit" class="form-button">Enviar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script type="text/javascript">
+      emailjs.init("DCTN_qidfWTo1NVYP");
+      function enviarCorreo(event) {
+        event.preventDefault();
+
+        const correo = document.getElementById("correoUsuario").value;
+        const form = event.target;
+        const nombre = form.name.value;
+        const mensaje = form.message.value;
+
+        if (!correo.includes("@")) {
+          alert("Por favor, ingresa un correo válido.");
+          return false;
+        }
+
+        const params = {
+          from_name: nombre,
+          from_email: correo,
+          message: mensaje,
+        };
+
+        emailjs.send("service_0d8dalp", "template_cs1kaki", params).then(
+          function (response) {
+            alert("¡Correo enviado con éxito!");
+            console.log("Success:", response);
+          },
+          function (error) {
+            alert("Hubo un error al enviar el correo.");
+            console.log("Error:", error);
+          }
+        );
+      }
+    </script>
+    <script src="scripts_p2.js"></script>
+  </body>
+</html>
